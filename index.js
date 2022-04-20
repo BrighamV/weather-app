@@ -1,27 +1,31 @@
-// import fetch from 'node-fetch';
 const axios = require('axios');
-console.log("poop");
-
-// // https://weatherdbi.herokuapp.com/data/weather/london
-
-// function convertToJson(res) {
-//     let jsonResponse = res.json();
-//     if (res.ok) {
-//       return jsonResponse;
-//     } else {
-//       throw { name: "services error", message: jsonResponse };
-//     }
-//   }
-// function getData(){
+var http = require('http');
+const port = 3000;
+const express = require('express');
+const app = express();
+const cors = require('cors');
+app.use(cors());
 
 
-// let weather = fetch("https://film-watcher.herokuapp.com/movies").then(convertToJson).then((data) => data);
-// console.log(weather, "weather log");
-// return weather;
-// }
-// weather = getData()
-// console.log(weather);
 
 axios.get("https://weatherdbi.herokuapp.com/data/weather/london").then(response => {
-console.log('resjponse', response.data)
+    let data = JSON.stringify(response.data);
+
+    http.createServer(function (req, res) {
+     
+        res.write(data); //write a response to the client
+        res.end(); //end the response
+      }).listen(port); //the server object listens on port 8080
+
+// console.log('resjponse', response.data)
 })
+
+
+
+
+//create a server object:
+
+
+// document.querySelector(".data").innerHTML = data;
+
+// console.log("hi");
